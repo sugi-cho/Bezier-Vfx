@@ -10,10 +10,8 @@ namespace sugi.vfx.bezier
     public class BezierVfx : MonoBehaviour
     {
         [SerializeField] VisualEffect vfx;
-        [SerializeField] bool closed;
         [SerializeField] int maxBezierSegments = 512;
 
-        bool edit;
         GraphicsBuffer m_buffer;
         List<BezierSegment> m_bezierSegments;
 
