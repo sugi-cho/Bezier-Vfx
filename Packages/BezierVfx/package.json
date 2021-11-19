@@ -1,10 +1,10 @@
 {
-    "name": "sugi.vfx.bezier",
-    "displayName": "vfx.bezier",
-    "version": "0.1.0",
-    "unity": "2021.2",
-    "description": "description.",
-    "author": {
-      "name": "sugi-cho"
-    }
+  "name": "sugi.vfx.bezier",
+  "displayName": "sugi.vfx.bezier",
+  "version": "0.1.0",
+  "unity": "2021.2",
+  "description": "description.",
+  "author": {
+    "name": "sugi-cho"
   }
+}
