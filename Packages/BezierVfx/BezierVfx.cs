@@ -10,6 +10,8 @@ namespace sugi.vfx.bezier
     public class BezierVfx : MonoBehaviour
     {
         [SerializeField] VisualEffect vfx;
+        [SerializeField] string bufferPropName = "BezierBuffer";
+        [SerializeField] string numPropName = "nSegments";
         [SerializeField] int maxBezierSegments = 512;
 
         GraphicsBuffer m_buffer;
@@ -18,10 +20,30 @@ namespace sugi.vfx.bezier
         public List<BezierSegment> BezierSegments
         {
             get => m_bezierSegments;
-            set {
+            set
+            {
                 m_bezierSegments = value;
                 UpdateVfx();
             }
+        }
+        /// <summary>
+        /// SetData for Unity.Vectorgraphics.BezierSegment
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        public void SetData<T>(T[] data)
+        {
+            if (m_buffer == null)
+                m_buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 4 * maxBezierSegments, sizeof(float) * 3);
+            m_buffer.SetData(data);
+            vfx.SetGraphicsBuffer(bufferPropName, m_buffer);
+            vfx.SetInt(numPropName, data.Length);
+        }
+
+        private void OnEnable()
+        {
+            m_buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 4 * maxBezierSegments, sizeof(float) * 3);
+            vfx.SetGraphicsBuffer(bufferPropName, m_buffer);
         }
 
 #if UNITY_EDITOR
@@ -37,8 +59,8 @@ namespace sugi.vfx.bezier
             if (m_buffer == null)
                 m_buffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 4 * maxBezierSegments, sizeof(float) * 3);
             m_buffer.SetData(m_bezierSegments);
-            vfx.SetGraphicsBuffer("BezierBuffer", m_buffer);
-            vfx.SetInt("nSegments", m_bezierSegments.Count);
+            vfx.SetGraphicsBuffer(bufferPropName, m_buffer);
+            vfx.SetInt(numPropName, m_bezierSegments.Count);
         }
 
         [System.Serializable]
