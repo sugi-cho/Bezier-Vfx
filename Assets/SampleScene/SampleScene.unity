@@ -154,8 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfx: {fileID: 958478753}
-  closed: 1
+  bufferPropName: BezierBuffer
+  numPropName: nSegments
   maxBezierSegments: 512
+  segmentType: 3
 --- !u!4 &356474558
 Transform:
   m_ObjectHideFlags: 0

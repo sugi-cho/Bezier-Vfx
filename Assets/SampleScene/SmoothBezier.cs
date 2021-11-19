@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using sugi.vfx.bezier;
-using BezierSegment = sugi.vfx.bezier.BezierVfx.BezierSegment;
+using BezierSegment3D = sugi.vfx.bezier.BezierVfx.BezierSegment3D;
 
 [ExecuteInEditMode]
 public class SmoothBezier : MonoBehaviour
@@ -13,7 +13,7 @@ public class SmoothBezier : MonoBehaviour
     [SerializeField] BezierVfx bezierVfx;
 
     bool edit;
-    List<BezierSegment> m_bezierSegments = new List<BezierSegment>();
+    List<BezierSegment3D> m_bezierSegments = new List<BezierSegment3D>();
 
     private void OnValidate()
     {
@@ -22,7 +22,7 @@ public class SmoothBezier : MonoBehaviour
         {
             var s0 = smoothBeziers[i];
             var s1 = smoothBeziers[(i + 1) % smoothBeziers.Length];
-            var segment = new BezierSegment { p0 = s0.p0, p1 = s0.p1, p2 = 2 * s1.p0 - s1.p1, p3 = s1.p0 };
+            var segment = new BezierSegment3D { p0 = s0.p0, p1 = s0.p1, p2 = 2 * s1.p0 - s1.p1, p3 = s1.p0 };
             m_bezierSegments.Add(segment);
         }
         edit = true;
@@ -31,7 +31,7 @@ public class SmoothBezier : MonoBehaviour
     private void Update()
     {
         if (edit)
-            bezierVfx.BezierSegments = m_bezierSegments;
+            bezierVfx.BezierSegments3D = m_bezierSegments;
         edit = false;
     }
 
